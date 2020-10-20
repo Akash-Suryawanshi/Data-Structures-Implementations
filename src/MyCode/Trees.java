@@ -44,6 +44,14 @@ public class Trees {
             inorder(n.right);
         }
     }
+    
+    public static boolean isoperator(char operator) {
+        if (operator=='+' || operator=='-' || operator=='/' || operator=='*'){
+            return true;
+        }
+        return false;
+    }
+    
     public static void main(String[] args) {
         BinaryTree b = new BinaryTree();
         b.root = new Node(0);
