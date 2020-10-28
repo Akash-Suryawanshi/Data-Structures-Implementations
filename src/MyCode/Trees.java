@@ -4,11 +4,12 @@ import java.util.Stack;
 
 public class Trees {
     static class Node {
-        int data;
+        int data, height;
         Node left, right, parent;
-        public Node(int item) {
-            data = item;
-            left=right=parent=null;
+        public Node(int data) {
+            this.data = data;
+            this.left = this.right = this.parent = null;
+            this.height = 1;
         }
     }
     static class BinaryTree extends Trees{
