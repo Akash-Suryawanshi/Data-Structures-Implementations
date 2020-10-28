@@ -1,15 +1,17 @@
 package MyCode;
+import java.util.Stack;
+
 
 public class Trees {
     static class Node {
         int data;
-        Node left, right;
+        Node left, right, parent;
         public Node(int item) {
             data = item;
-            left=right=null;
+            left=right=parent=null;
         }
     }
-    static class BinaryTree {
+    static class BinaryTree extends Trees{
         Node root;
         public BinaryTree() {
             root = null;
@@ -51,7 +53,39 @@ public class Trees {
         }
         return false;
     }
-    
+     public static void iter_pre(Node root) {
+        if (root==null) return;
+         Stack<Node> stack = new Stack<Node>();
+         stack.push(root);
+         while (!stack.isEmpty()) {
+             Node n = stack.peek();
+             System.out.print(n.data+" ");
+             stack.pop();
+             if (n.right!=null) {
+                 stack.push(n.right);
+             }
+             if (n.left!=null) {
+                 stack.push(n.left);
+             }
+         }
+     }
+     public static void iter_in(Node root) {
+        Stack<Node> s = new Stack<>();
+        Node cur = root;
+        while (cur!=null || !s.isEmpty()) {
+            while (cur != null) {
+                s.push(cur);
+                cur = cur.left;
+            }
+            cur = s.pop();
+            System.out.print(cur.data + " ");
+            cur = cur.right;
+        }
+     }
+     public static void iter_post(Node root) {
+        Stack<Node> s = new Stack<Node>();
+
+     }
     public static void main(String[] args) {
         BinaryTree b = new BinaryTree();
         b.root = new Node(0);
@@ -66,5 +100,9 @@ public class Trees {
         postorder(b.root);
         System.out.println();
         inorder(b.root);
+        System.out.println();
+        /*iter_pre(b.root);*/
+        iter_in(b.root);
+
     }
 }
