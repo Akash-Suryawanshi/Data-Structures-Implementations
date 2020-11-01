@@ -29,8 +29,11 @@ public class AVL_Tree extends SearchTree {
         }
         return root;
     }
-
-    public static boolean check_balance(Node root) {
+    public boolean check_balance() {
+        boolean val = check_balance(root);
+        return val;
+    }
+    public boolean check_balance(Node root) {
         if (root.left == null || root.right == null) {
             if (root.height > 2) return false;
         } else if (Math.abs(root.right.height - root.left.height) > 1) {
@@ -41,6 +44,26 @@ public class AVL_Tree extends SearchTree {
         }
         return true;
     }
+    public void iter_addavl(int data) {
+        root = iter_addavl(root, data);
+    }
+    public Node iter_addavl(Node root, int data) {
+        Node cur = root;
+        while (cur!=null) {
+            if (cur.data < data) {
+                cur = cur.left;
+            }
+            else if (cur.data > data){
+                cur = cur.right;
+            }
+            else {
+
+            }
+        }
+        if (!check_balance(root)) {
+
+        }
+    }
 
     public static void main(String[] args) {
         AVL_Tree a = new AVL_Tree();
@@ -48,7 +71,7 @@ public class AVL_Tree extends SearchTree {
         a.add_avl(0);
         a.add_avl(2);
         System.out.println("root height = " + a.root.height);
-        System.out.println(check_balance(a.root));
+        System.out.println(a.check_balance());
         System.out.println(a.root.right.height);
         System.out.println(a.root.left.height);
         System.out.println(a.root.height);
