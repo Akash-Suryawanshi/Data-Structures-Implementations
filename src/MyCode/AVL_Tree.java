@@ -63,6 +63,7 @@ public class AVL_Tree extends SearchTree {
         if (!check_balance(root)) {
 
         }
+        return root;
     }
 
     public static void main(String[] args) {

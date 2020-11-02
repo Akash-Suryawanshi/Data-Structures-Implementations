@@ -50,27 +50,76 @@ public class SearchTree extends Trees.BinaryTree {
         }
         public Node successor(Node root, int data) {
             Node n = iter_search(root, data);
-            if (n.right==null) {
-                while (n.parent!=null && n.parent.right==n) {
+            if (n.right == null) {
+                while (n.parent != null && n.parent.right == n) {
                     n = n.parent;
                 }
-                if (n==root) {
+                if (n == root) {
                     System.out.println("No successor");
                     return null;
-                }
-                else {
+                } else {
                     return n.parent;
                 }
-            }
-            else {
+            } else {
                 n = n.right;
-                while (n.left!=null) {
+                while (n.left != null) {
                     n = n.left;
                 }
                 return n;
             }
-
         }
+        public void delete(int data) {
+            root = delete(root, data);
+        }
+
+        public void remove(Node node) {
+            if (node.data < node.parent.data) {
+                node.parent.left = null;
+                node.parent = null;
+            }
+            else {
+                node.parent.right = null;
+                node.parent = null;
+            }
+        }
+        public Node delete(Node root, int data) {
+            Node n = iter_search(root, data);
+            if (n.left==null && n.right==null) {
+                remove(n);
+            }
+            else if (n.left==null || n.right==null) {
+                if (n.left == null) {
+                    Node right = n.right;
+                    if (n.parent.left == n) {
+                        n.right.parent = n.parent;
+                        n.parent.left = n.right;
+                    } else {
+                        n.right.parent = n.parent;
+                        n.parent.right = n.right;
+                    }
+                } else if (n.right == null) {
+                    Node left = n.left;
+                    if (n.parent.right == n) {
+                        n.left.parent = n.parent;
+                        n.parent.right = n.left;
+                    } else {
+                        n.left.parent = n.parent;
+                        n.parent.left = n.left;
+                    }
+                }
+            }
+                else {
+                    Node successor = successor(root, n.data);
+                    int temp = successor.data;
+                    delete(root, successor.data);
+                    n.data = temp;
+                }
+
+            return root;
+        }
+        /*public static Node recur_successor() {
+
+        }*/
         public int predecessor(int data) {
             Node ans = predecessor(root, data);
             return ans.data;
@@ -118,11 +167,9 @@ public class SearchTree extends Trees.BinaryTree {
         b.insert(-3);
         inorder(b.root);
         System.out.println();
-        /*int ans = b.successor(4);
-        System.out.println(ans);*/
-        System.out.println(b.predecessor(34));
-        /*Node t = iter_search(b.root, 34);
-        System.out.println(t.parent.parent.data);*/
+        b.delete(8);
+        inorder(b.root);
+
 
 
     }
